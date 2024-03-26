@@ -15,6 +15,9 @@ public class Order {
     @Id
     @GeneratedValue
     private Long orderId;
-    private Integer eventType;
+//    private Integer eventType;
+//    private LocalDate expectedTime;
+//    private Integer goodId;
+//    private Integer price;
     private LocalDate date;
 }

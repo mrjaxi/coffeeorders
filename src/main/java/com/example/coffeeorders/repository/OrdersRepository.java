@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface OrdersRepository extends JpaRepository<Order, Long> {
-    @Query("select eventType from Order where orderId = :orderId")
-    int getEventTypeByOrderId(@Param("orderId") Long orderId);
+    boolean existsById(Long id);
+
+    Order findByOrderId();
 }

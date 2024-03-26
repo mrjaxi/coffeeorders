@@ -3,11 +3,11 @@ package com.example.coffeeorders.utils;
 import java.util.Arrays;
 
 public enum EventTypes {
-    REGISTER(0),
-    CANCEL(-1),
-    IN_WORK(1),
-    PREPARE(2),
-    FINISH(3);
+    CANCEL(0),
+    REGISTER(1),
+    IN_WORK(2),
+    PREPARE(3),
+    FINISH(4);
 
     private final int type;
     EventTypes(int type) {

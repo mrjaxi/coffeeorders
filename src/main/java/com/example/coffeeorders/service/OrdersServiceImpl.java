@@ -1,14 +1,15 @@
 package com.example.coffeeorders.service;
 
-import com.example.coffeeorders.model.EventData;
 import com.example.coffeeorders.model.Order;
 import com.example.coffeeorders.model.OrderEvent;
 import com.example.coffeeorders.repository.OrderEventRepository;
 import com.example.coffeeorders.repository.OrdersRepository;
 import com.example.coffeeorders.utils.EventTypes;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.nio.InvalidMarkException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,15 +20,15 @@ public class OrdersServiceImpl implements OrderService {
 
     @Override
     public void publishEvent(OrderEvent event) {
-        // REGISTER EVENT
-        if (ordersRepository.getEventTypeByOrderId(event.getOrderId()) != EventTypes.CANCEL.getType()) {
-            eventRepository.save(event);
+        // Проверка есть ли вообще order с таким id, по которому мы хотим добавить событие
+        if (ordersRepository.existsById(event.getOrderId())) {
+
+            // Проверка нету ли завершенных событий или отмененных
+            if (eventRepository.existsEventCancelOrFinish(event.getOrderId()) == 0) {
+
+                eventRepository.save(event);
+            }
         }
-//        if (event.getEventType() == EventTypes.REGISTER.getType()) {
-//            if (eventRepository.eventNotCancelledAndReg(event.getOrderId()) == 0) {
-//                eventRepository.save(event);
-//            }
-//        }
     }
 
     @Override
