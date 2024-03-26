@@ -3,6 +3,8 @@ package com.example.coffeeorders.model;
 import com.example.coffeeorders.utils.ConverterData;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NonNull;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

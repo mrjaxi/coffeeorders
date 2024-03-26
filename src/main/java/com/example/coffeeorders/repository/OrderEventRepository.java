@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface OrderEventRepository extends JpaRepository<OrderEvent, Long> {
 
-    @Query("select count(id) from OrderEvent where orderId= :orderId and eventType=-1 or eventType=3")
+    @Query("select count(id) from OrderEvent where orderId= :orderId and eventType=4 or eventType=5")
     int existsEventCancelOrFinish(@Param("orderId") Long orderId);
 
     @Query("select eventType from OrderEvent where orderId=:orderId order by eventType desc limit 1")
     int getLastEventById(Long orderId);
+
+
 }
