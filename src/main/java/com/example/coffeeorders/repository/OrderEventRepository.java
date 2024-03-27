@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface OrderEventRepository extends JpaRepository<OrderEvent, Integer> {
 
@@ -16,8 +15,8 @@ public interface OrderEventRepository extends JpaRepository<OrderEvent, Integer>
     @Query("select eventType from OrderEvent where orderId=:orderId order by eventType desc limit 1")
     int getLastEventById(int orderId);
 
-    @Query("select OrderEvent from OrderEvent where orderId=:orderId order by id asc")
-    Optional<OrderEvent> getAllEventsById(@Param("orderId") int id);
+    @Query("select count(id) from OrderEvent where orderId= :orderId")
+    int existsByOrderId(@Param("orderId") int orderId);
 
-    List<OrderEvent> findAllByOrderId(int id);
+    List<OrderEvent> findAllByOrderId(int orderId);
 }

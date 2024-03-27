@@ -3,8 +3,7 @@ package com.example.coffeeorders.model;
 import com.example.coffeeorders.utils.ConverterData;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -20,5 +19,5 @@ public class OrderEvent {
     @Column(columnDefinition = "json")
     private Object data;
     private Integer eventType;
-    private LocalDate createTime;
+    private LocalDateTime createTime;
 }
