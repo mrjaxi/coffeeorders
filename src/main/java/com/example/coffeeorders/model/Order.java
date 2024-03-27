@@ -7,14 +7,16 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class Order {
-    private Long orderId;
+    private Integer orderId;
     private Integer stuffId;
     private LocalDate expectedTime;
     private Integer goodId;
     private Integer price;
     private String cancelReason;
-    private Integer eventType;
+    private Integer currentEvent;
+    private List<OrderEvent> orderEvents;
 }

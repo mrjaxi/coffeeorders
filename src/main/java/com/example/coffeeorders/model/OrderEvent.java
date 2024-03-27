@@ -3,11 +3,8 @@ package com.example.coffeeorders.model;
 import com.example.coffeeorders.utils.ConverterData;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NonNull;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 @Data
@@ -16,8 +13,8 @@ import java.time.LocalDateTime;
 public class OrderEvent {
     @Id
     @GeneratedValue
-    private Long id;
-    private Long orderId;
+    private Integer id;
+    private Integer orderId;
 //    @Embedded
     @Convert(converter = ConverterData.class)
     @Column(columnDefinition = "json")

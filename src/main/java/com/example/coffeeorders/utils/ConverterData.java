@@ -5,26 +5,24 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jakarta.persistence.AttributeConverter;
 
+import java.time.LocalDate;
+
 public class ConverterData implements AttributeConverter<Object, String> {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final Gson MAPPER = new GsonBuilder()
+            .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+            .create();
 
     @Override
     public String convertToDatabaseColumn(Object o) {
-        try {
-            return MAPPER.writeValueAsString(o);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        return MAPPER.toJson(o);
     }
 
     @Override
-    public EventData convertToEntityAttribute(String s) {
-        try {
-            return MAPPER.readValue(s, EventData.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public Object convertToEntityAttribute(String s) {
+        return MAPPER.fromJson(s, Object.class);
     }
 }
