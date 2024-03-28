@@ -51,14 +51,17 @@ public class OrdersServiceImpl implements OrderService {
         // Получаем все события по OrderID
         List<OrderEvent> data = eventRepository.findAllByOrderId(id);
 
-        // Устанавливаем для выдачи OrderID
-        unitData.setOrderId(data.get(0).getOrderId());
+        if (data.size() > 0) {
+            // Устанавливаем для выдачи OrderID
+            unitData.setOrderId(data.get(0).getOrderId());
 
-        // И устанавливаем текущий тип события на основании последнего события в БД
-        unitData.setCurrentEvent(data.get(data.size() - 1).getEventType());
+            // И устанавливаем текущий тип события на основании последнего события в БД
+            unitData.setCurrentEvent(data.get(data.size() - 1).getEventType());
 
-        // Задаем все события по этому OrderID
-        unitData.setOrderEvents(data);
+            // Задаем все события по этому OrderID
+            unitData.setOrderEvents(data);
+        }
+
 
         return unitData;
     }
